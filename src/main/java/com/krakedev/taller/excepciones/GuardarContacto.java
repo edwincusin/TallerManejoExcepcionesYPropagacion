@@ -11,7 +11,7 @@ public class GuardarContacto {
 	//instanciamos el objeto de logger de logBack
 	private static final Logger log=LoggerFactory.getLogger(GuardarContacto.class);
 	
-	public static void main(String[] args) {
+	public  void guarda() {
 		FileWriter escritor=null;
 			
 		try {
