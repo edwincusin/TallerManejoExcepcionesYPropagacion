@@ -12,29 +12,39 @@ public class LeerContacto {
 
 	private static final Logger log = LoggerFactory.getLogger(LeerContacto.class);
 
-	public void lee() {
-		FileReader lector = null;
+	public static void lee() {
+		FileReader lectorArchivo = null;
 		BufferedReader leerlinea = null;
 
 		try {
-			lector = new FileReader("contactos.txt");
+			lectorArchivo = new FileReader("contactos.txt");
 
-			leerlinea = new BufferedReader(lector);
+			leerlinea = new BufferedReader(lectorArchivo);
 			String linea = "";
 			for (linea = leerlinea.readLine(); linea != null; linea = leerlinea.readLine()) {
 				log.info(linea);
 			}
 
 		} catch (FileNotFoundException e) {
-			log.error("Archivo contactos no ecnontrado: " + e);
+			log.error("Archivo contactos no ecnontrado: " + e.getMessage());
 		} catch (IOException e) {
-			log.error("Error al realizar lectura de linea por linea " + e);
-		} finally {
-			try {
-				leerlinea.close();
-			} catch (IOException e) {
-				log.error("Error al cerrar leerLinea BufferedReader " + e);
-			}
+			log.error("Error al realizar lectura de linea por linea " + e.getMessage());
+		} catch (Exception e) {
+			log.error("Error: exepcion general " + e.getMessage()); //BUENAS PRACTICAS UN CATCH UNIVERSAL
+		} finally {				
+
+				try {
+					if(lectorArchivo!=null) {
+						lectorArchivo.close();
+					}
+					if(leerlinea!=null) {
+						leerlinea.close();
+					}
+					
+				} catch (IOException e) {
+					log.error("Error al cerrar el archivo " +e.getMessage());
+				}
+
 		}
 
 	}
